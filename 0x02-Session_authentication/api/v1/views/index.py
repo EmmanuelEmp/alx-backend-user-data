@@ -26,20 +26,19 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized', strict_slashes=False)
-def unauthorized() -> str:
-    """Unauthorized URI"""
-    abort(401)
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def test_forbidden() -> str:
+    """ GET /api/v1/forbidden
+    Return:
+      - Raise error
+    """
+    return abort(403)
 
 
-@app_views.route('/forbidden', strict_slashes=False)
-def forbidden() -> str:
-    """Forbidden URI"""
-    abort(403)
-
-
-@app_views.route('/dumps')
-def dump() -> str:
-    """Dumps String for tests"""
-    from flask import request
-    return str(request.path)
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
+def test_unathourized() -> str:
+    """ GET /api/v1/unauthorized
+    Return:
+      - Raise error
+    """
+    return abort(401)
